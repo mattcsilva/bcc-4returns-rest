@@ -39,8 +39,6 @@ app.get("/api/v1/alunos/:id", (request, response) => {
 app.post("/api/v1/alunos", (request, response) => {
   const { nome, curso, semestre, ra, cpf, cidade } = request.body;
 
-  const data = new Date();
-
   const aluno = {
     id: uuid(),
     nome,
@@ -49,8 +47,8 @@ app.post("/api/v1/alunos", (request, response) => {
     ra,
     cpf,
     cidade,
-    creation: data.toLocaleDateString(),
-    lastUpdate: data.toLocaleDateString(),
+    creation: new Date(),
+    lastUpdate: new Date(),
   };
 
   alunos.push(aluno);
@@ -74,8 +72,6 @@ app.put("/api/v1/alunos/:id", (request, response) => {
     });
   }
 
-  const data = new Date();
-
   const aluno = {
     id,
     nome,
@@ -84,7 +80,8 @@ app.put("/api/v1/alunos/:id", (request, response) => {
     ra,
     cpf,
     cidade,
-    lastUpdate: data.toLocaleDateString(),
+    creation: alunos[alunoIndex]["creation"],
+    lastUpdate: new Date(),
   };
 
   alunos[alunoIndex] = aluno;
